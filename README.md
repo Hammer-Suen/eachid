@@ -1,4 +1,4 @@
-## EachId v2 - EachId v2 —— 极简、极强、41M+ QPS
+## EachId v2.0 —— 极简、极强、41M+ QPS
 
 <div align="center">
 
