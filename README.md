@@ -72,7 +72,7 @@ All parameters are configurable via fluent API—timestamp bits, step, workerId 
 
 | Scenario                                      | Actual QPS (One call = one request) | Notes                                  |
 |-----------------------------------------------|-------------------------------------|----------------------------------------|
-| Single Instance · Single-thread `nextId(1)`   | **41,000,000+**                     | World's Top                            |
+| Single Instance · Single-thread `nextId(1)`   | **41,000,000+**                     | World's Top Level                      |
 | Single Instance · 64-thread `nextId(1)`       | **17,021,048**                      | 3~5x Traditional Snowflake              |
 | Single Instance · Batch `nextId(100)`         | **40,000,000+**                     | Most common real business scenario      |
 | Single Instance · Batch `nextId(1000)`        | **300,000,000+**                    | Larger batches show greater advantage   |
