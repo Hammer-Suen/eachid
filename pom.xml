@@ -4,10 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.eachid</groupId>
+    <!-- 必需 -->
+    <!--填写校验通过的命名空间-->
+    <groupId>io.github.carlos-suen</groupId>
     <artifactId>eachid</artifactId>
     <version>2.0.0</version>
     <packaging>jar</packaging>
+    <!-- 必需 -->
+    <url>https://github.com/carlos-suen/eachid</url>
 
     <name>EachId</name>
     <description>
@@ -15,34 +19,48 @@
         The strongest Snowflake implementation for cloud-native era 2025.
         Supports batch acquisition, perfect Redis ZSet compatibility, complete clock rollback handling.
     </description>
-    <url>https://github.com/Hammer-Suen/eachid</url>
 
+
+    <!-- 必需 -->
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <!--掘金贴新增-->
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
+    <!-- 必需 -->
     <developers>
         <developer>
-            <name>Carlos Suen</name>
+            <!--掘金帖要求修改-->
+            <!--<name>Carlos Suen</name>-->
+            <name>carlos-suen</name>
             <email>hammersuen2002@gmail.com</email>
+            <!--掘金贴要求新增-->
+            <timezone>+8</timezone>
         </developer>
     </developers>
 
+    <!-- 必需 -->
     <scm>
-        <connection>scm:git:git://github.com/Hammer-Suen/eachid.git</connection>
-        <developerConnection>scm:git:ssh://github.com:Hammer-Suen/eachid.git</developerConnection>
-        <url>https://github.com/Hammer-Suen/eachid</url>
+        <url>https://github.com/carlos-suen/eachid</url>
     </scm>
+
+    <!-- issue管理配置，改成你自己的 -->
+    <!-- 可以使用 <issueManagement/> 闭合标签，表示忽略该项配置，该标签必须要有，不能删除 -->
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/carlos-suen/eachid/issues</url>
+    </issueManagement>
 
     <!-- 关键：release=Jdk9+， source/target=Jdk8+ -->
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
-         <!-- <maven.compiler.source>8</maven.compiler.source>
-         <maven.compiler.target>8</maven.compiler.target> -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--以下是新增的-->
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
@@ -52,7 +70,6 @@
             <version>2.0.13</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -72,7 +89,6 @@
             <version>2.0.13</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-core</artifactId>
@@ -84,32 +100,30 @@
             <version>1.37</version>
             <scope>provided</scope>
         </dependency>
-
-
-
-
     </dependencies>
 
     <build>
         <plugins>
-            <!-- 编译插件：只用 release 属性（JDK 9+ 标准写法） -->
+            <!-- 必需: 编译插件, 只用 release 属性（JDK 9+ 标准写法） -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <release>17</release> 
+                    <release>17</release>
                 </configuration>
             </plugin>
 
-            <!-- 源码包 -->
+            <!-- 必需: 源码包 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.3.1</version>
                 <executions>
                     <execution>
-                        <id>attach-sources</id>
+                        <!--这里需要修改-->
+                        <!--<id>attach-sources</id>-->
+                        <id>package</id>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
@@ -117,17 +131,20 @@
                 </executions>
             </plugin>
 
-            <!-- Javadoc包 -->
+            <!-- 必需: Javadoc包 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.12.0</version>
                 <configuration>
+                    <!--禁止严格语法检测-->
                     <doclint>none</doclint>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>attach-javadocs</id>
+                        <!--这里需要修改-->
+                        <!--<id>attach-javadocs</id>-->
+                        <id>package</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -135,7 +152,7 @@
                 </executions>
             </plugin>
 
-            <!-- GPG签名 -->
+            <!-- 必需: GPG签名 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -151,7 +168,7 @@
                 </executions>
             </plugin>
 
-            <!--JMH-->
+            <!--JMH, 不知道是否必须-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -165,7 +182,8 @@
                         <configuration>
                             <finalName>benchmarks</finalName>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.openjdk.jmh.Main</mainClass>
                                 </transformer>
                             </transformers>
@@ -175,17 +193,34 @@
             </plugin>
 
 
+            <!-- 必须: 发布到maven仓库中心插件，插件是必须的 -->
+            <!-- publishing to central server plugin -->
+            <!-- https://central.sonatype.com/artifact/org.sonatype.central/central-publishing-maven-plugin -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.7.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <!-- 注意：这类必须要和Maven配置环境中的server id对应上 -->
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+    <!-- 新版已不再需要 -->
+    <!--
+        <distributionManagement>
+            <snapshotRepository>
+                <id>central</id>
+                <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+            </snapshotRepository>
+            <repository>
+                <id>central</id>
+                <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            </repository>
+        </distributionManagement>
+    -->
 </project>
