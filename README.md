@@ -13,6 +13,12 @@
 ![64 Threads](https://img.shields.io/badge/64%20Threads-17M%2B%20QPS-orange)
 ![EachIdGroup](https://img.shields.io/badge/EachIdGroup%208%20instances-140M%2B%20QPS-critical)
 ![code-size](https://img.shields.io/github/languages/code-size/carlos-suen/eachid)
+[![Zero Deps](https://img.shields.io/badge/dependencies-none-success)](pom.xml)
+[![Stars](https://img.shields.io/github/stars/carlos-suen/eachid?style=social)](https://github.com/carlos-suen/eachid/stargazers)
+
+
+
+
 
 
 </div>
